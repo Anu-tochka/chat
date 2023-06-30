@@ -35,12 +35,33 @@ void User::setPass(const char* pass) // задаём пароль
     UserPass = pass;   
 }
 
- void saveUser()
+void saveUser()
 {
-    fileout = freopen("users.txt", "w", stdout);
+    // fileout = freopen("users.txt", "w", stdout);
+    ifstream file ("users.txt");
 	char* login = this -> setLogin;
 	char* pass = this -> setPass; 
 	char* name = this -> setName; 
-	printf("%s\n",login+"|"+pass+"|"+name);
+	printf("%s|%s|%s\n",login,pass,name);
 	std::fclose(fileout);
+}
+
+char* findPass(char* login)
+{
+    // fileout = freopen("users.txt", "r", stdout);
+    ifstream file ("users.txt");
+    smallint n = strlen(login);
+    char* buffer;
+    char* pass = '';
+    while (!feof(file)) {
+        //Читаем строку
+        file.getline(buffer,255,'\n');
+        char userInf[3]];
+        userInf =strtok(buffer, "|");; 
+        if (!strcmp(login, userInf[0]) { 
+            pass = userInf[1];
+            break;
+        }
+    }
+	return pass;
 }
