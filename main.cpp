@@ -6,32 +6,29 @@ using namespace std;
 	
 int main()
 {
-    
-    char e,login,nameTo,pass,name,mess;
-    cout << "Введите логин или нажмите + для регистрации нового пользователя"; 
-    cin >> e;
-    switch (e) { 
-      case '+':
-		cout << "Введите логин: "; 
-		cin >> login;
-		cout << "Введите пароль: "; 
-		cin >> pass;
+    char* login,nameTo,pass,name,mess;
+    cout << "Введите логин: "; 
+	cin >> login;
+	cout << "Введите пароль: "; 
+	cin >> pass;
+	if (findPass(login) == '') {
 		cout << "Введите имя: "; 
 		cin >> name;
 		User *newuser = new User(login,pass,name);
 		newuser->saveUser();
-        break;
-      default:
-		cout << "Введите пароль: "; 
-		cin >> pass;
-		User *myuser = new User(e,pass);
-		cout << "Введите пользователя: "; 
-		cin >> nameTo;
-		cout << "Введите сообщение: "; 
-		cin >> mess;
-		myuser->read(myuser); 
-		myuser->write(myuser, nameTo, mess); 
-        break;
+	}
+	else {
+		if (findPass(login) != pass) cout << "Неправильные данные"; 
+		else {
+			User *myUser = new User(login,pass);
+			Chat *myChat = new Chat();
+			myChat->read(myuser);
+			cout << "Введите имя пользователя: "; 
+			cin >> nameTo;
+			cout << "Введите сообщение: "; 
+			cin >> mess; 
+			myChat->write(myuser, nameTo, mess);
+		}
     }
     
 	delete myuser;
