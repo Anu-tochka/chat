@@ -3,15 +3,13 @@
 class User
 {
 public:
-    User(const char* UserName, const char* UserName, const char* UserName);// конструктор
- 	~User(); // деструктор
-    void setName(const char* name);
-	void getName(const char* name);
-    void setUserLogin(const char* login);
-    void setUserPass(const char* pass);
-private:
-    const char *UserName;
-    const char *setUserLogin;
-    const char *setUserPass;
+    User(const char* login, const char* pass);// конструктор
+    ~User(); // деструктор
+   void setName(char* name);
+    char* getName();
+    void setLogin(char* login);
+    void setPass(char* pass);
+    char* getLogin();
+    char* findPass(char* login);
     void saveUser();
 };
