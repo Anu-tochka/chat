@@ -1,37 +1,44 @@
 #include "User.h"
 #include "chat.h"
 #include <iostream>
+#include <stdio.h>
 #include <fstream>
 using namespace std;
 	
 int main()
-{
-    char* login,nameTo,pass,name,mess;
+{    
+    char* login;
+    char* nameTo;
+    char* pass;
+    char* name;
+    char* mess;
     cout << "Введите логин: "; 
-	cin >> login;
-	cout << "Введите пароль: "; 
-	cin >> pass;
-	if (findPass(login) == '') {
-		cout << "Введите имя: "; 
+    cin >> login;
+    cout << "Введите пароль: "; 
+    cin >> pass;
+    User *myUser = new User(login,pass);
+    char *p = myUser->findPass(login);
+    if (!p)  {
+		cout << "Введите имя: ";
 		cin >> name;
-		User *newuser = new User(login,pass,name);
-		newuser->saveUser();
+	      	myUser->setName(name);
+		myUser->saveUser();
 	}
 	else {
-		if (findPass(login) != pass) cout << "Неправильные данные"; 
-		else {
-			User *myUser = new User(login,pass);
-			Chat *myChat = new Chat();
-			myChat->read(myuser);
-			cout << "Введите имя пользователя: "; 
+		if (strcmp(p, pass) ) {
+                    Chat *myChat = new Chat();
+                    char* name = myUser->getName();
+
+			myChat->read(name);
+			cout << "Введите имя пользователя: ";
 			cin >> nameTo;
-			cout << "Введите сообщение: "; 
-			cin >> mess; 
-			myChat->write(myuser, nameTo, mess);
+			cout << "Введите сообщение: ";
+			cin >> mess;
+			myChat->write(name, nameTo, mess);
 		}
+		else  cout << "Неправильные данные";
     }
     
-	delete myuser;
-	delete newuser;
+	delete myUser;
     return 0;
 }
