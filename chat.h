@@ -4,11 +4,10 @@ class Chat
 {
 public:
     Chat();// конструктор
- 	~Chat(); // деструктор
-private:
+    ~Chat(); // деструктор
     const char *userFrom;
     const char *userTo;
     const char *message;
-    void write(User userFrom, User userTo, const char *message);
-	void read(User user);
+    void write(char *userFrom, char *userTo, char *message);
+    void read(char *name);
 };
