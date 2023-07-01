@@ -1,67 +1,71 @@
 #include "User.h" // Включаем заголовочный файл c описанием класса
 #include <fstream>
+#include <stdio.h>
 #include <iostream>
 
 using namespace std;
 
-User::User(const char* name, const char* login, const char* pass)
+User::User(const char* login, const char* pass)
 {
-   UserName = name;
-   UserLogin = login;
-   UserPass = pass;
+   char* UserLogin = login;
+   char* UserPass = pass;
 }
 
 User::~User()
 {
 }
 
-void User::setName(const char* name) // задаём имя
+void User::setName(char* name) // задаём имя
 {
-    UserName = name;   
+    char* UserName = name;
 }
 
-void User::getName(const char* name) // 
+char* User::getName() //
 {
-    cout << name;   
+    return this->UserName;
 }
 
-void User::setLogin(const char* login) // задаём логин
+void User::setLogin(char* login) // задаём логин
 {
-    UserLogin = login;   
+    this->UserLogin = login;
+}
+ 
+char* User::getLogin() //
+{
+    return this->UserLogin;
 }
 
-void User::setPass(const char* pass) // задаём пароль
+void User::setPass(char* pass) // задаём пароль
 {
-    UserPass = pass;   
+    this->UserPass = pass;
 }
 
-void saveUser()
+void User::saveUser()
 {
-    // fileout = freopen("users.txt", "w", stdout);
-    ifstream file ("users.txt");
+     fileout = freopen("users.txt", "w", stdout);
 	char* login = this -> setLogin;
-	char* pass = this -> setPass; 
-	char* name = this -> setName; 
+	char* pass = this -> setPass;
+	char* name = this -> setName;
 	printf("%s|%s|%s\n",login,pass,name);
 	std::fclose(fileout);
 }
 
-char* findPass(char* login)
+char* User::findPass(char* login)
 {
-    // fileout = freopen("users.txt", "r", stdout);
-    ifstream file ("users.txt");
+     fileout = freopen("users.txt", "r", stdout);
     smallint n = strlen(login);
     char* buffer;
     char* pass = '';
-    while (!feof(file)) {
+    while (!feof(fileout)) {
         //Читаем строку
         file.getline(buffer,255,'\n');
-        char userInf[3]];
-        userInf =strtok(buffer, "|");; 
-        if (!strcmp(login, userInf[0]) { 
+        char userInf[0]];
+        userInf =strtok(buffer, "|");;
+        if (!strcmp(login, userInf[0]) {
             pass = userInf[1];
             break;
         }
     }
+	std::fclose(fileout);
 	return pass;
 }
