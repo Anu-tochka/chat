@@ -23,24 +23,28 @@ void startConnect()  {
 	}
 } 
  
-void autorisation(string login, string pass)  { 
+int autorisation(string login, string pass)  { 
 	mysql_query(&mysql, "SELECT id, name FROM users WHERE login=" + login + " AND pass=" + pass); //Делаем запрос к таблице
+	int id;
 	if (res = mysql_store_result(&mysql)) {
-		string name = mysql_fetch_row(res); 
-		cout << "Hello, " << name << "!";
+		row = mysql_fetch_row(res); 
+		cout << "Hello, " << row['name'] << "!";
+		id = row['id'];
 	}
-	else
+	else {
 		cout << "Неправильный логин или пароль";
+		id = 0;
+	}
 } 
  
-void messages(string batch)  {	
-	mysql_query(&mysql, "SELECT * FROM table_fromCplusplus"); //Делаем запрос к таблице
- 
+void messages(int id)  {	
+	mysql_query(&mysql, "SELECT * FROM messages WHERE toUser=" + id); //Делаем запрос к таблице
+	
 	//Выводим все что есть в таблице через цикл
 	if (res = mysql_store_result(&mysql)) {
 		while (row = mysql_fetch_row(res)) {
-			for (i = 0; i < mysql_num_fields(res); i++) {
-				cout << row[i] << "  ";
+			for (int i = 0; i < mysql_num_fields(res); i++) {
+				cout << "От " << row['fromUser'] << row['message'];
 			}
 			cout << endl;
 		}
