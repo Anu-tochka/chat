@@ -1,44 +1,16 @@
 #include "User.h"
-#include "chat.h"
-#include <iostream>
-#include <stdio.h>
-#include <fstream>
-using namespace std;
-	
-int main()
-{    
-    char* login;
-    char* nameTo;
-    char* pass;
-    char* name;
-    char* mess;
-    cout << "Введите логин: "; 
-    cin >> login;
-    cout << "Введите пароль: "; 
-    cin >> pass;
-    User *myUser = new User(login,pass);
-    char *p = myUser->findPass(login);
-    if (!p)  {
-		cout << "Введите имя: ";
-		cin >> name;
-	      	myUser->setName(name);
-		myUser->saveUser();
-	}
-	else {
-		if (strcmp(p, pass) ) {
-                    Chat *myChat = new Chat();
-                    char* name = myUser->getName();
+#include "Message.h"
+#include "server.cpp"
 
-			myChat->read(name);
-			cout << "Введите имя пользователя: ";
-			cin >> nameTo;
-			cout << "Введите сообщение: ";
-			cin >> mess;
-			myChat->write(name, nameTo, mess);
-		}
-		else  cout << "Неправильные данные";
-    }
-    
-	delete myUser;
+int main()
+{
+    startConnect();
+	User obj("Nikita","user1","12345");
+	User obj2("Anna","user2","qwerty");
+	User obj3("Marta","user3","uuu123");
+    int id2 = autorisation(obj2->name,obj2->pass);
+    messages(id2);
+    int id3 = autorisation(obj3->name,obj3->pass);
+    messages(id3);
     return 0;
 }
