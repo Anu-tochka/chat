@@ -2,14 +2,11 @@
 
 class User
 {
+	string _name;
+	string _login;
+	string _pass;
+
 public:
-    User(const char* login, const char* pass);// конструктор
-    ~User(); // деструктор
-   void setName(char* name);
-    char* getName();
-    void setLogin(char* login);
-    void setPass(char* pass);
-    char* getLogin();
-    char* findPass(char* login);
-    void saveUser();
+	User(string name, string login, string pass):_name(name), _login(login), _pass(pass);
+	~User();
 };
