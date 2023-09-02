@@ -28,30 +28,31 @@ int autorisation(string login, string pass)  {
 	int id;
 	if (res = mysql_store_result(&mysql)) {
 		row = mysql_fetch_row(res); 
-		cout << "Hello, " << row['name'] << "!";
-		id = row['id'];
+		cout << "Hello, " << row['1'] << "!";
+		id = row['0'];
 	}
 	else {
 		cout << "Неправильный логин или пароль";
 		id = 0;
 	}
+	return id;
 } 
  
 void messages(int id)  {	
-	mysql_query(&mysql, "SELECT * FROM messages WHERE toUser=" + id); //Делаем запрос к таблице
+	mysql_query(&mysql, "SELECT fromUser, message FROM messages WHERE toUser=" + id); //Делаем запрос к таблице
 	
 	//Выводим все что есть в таблице через цикл
 	if (res = mysql_store_result(&mysql)) {
 		while (row = mysql_fetch_row(res)) {
 			for (int i = 0; i < mysql_num_fields(res); i++) {
-				cout << "От " << row['fromUser'] << row['message'];
+				cout << "От " << row['0'] << row['1'];
 			}
 			cout << endl;
 		}
 	}
 	else
 		cout << "Ошибка MySql номер " << mysql_error(&mysql);
-} 
+}
  
 void closeConnect()  {	 
 	// Закрываем соединение с базой данных
